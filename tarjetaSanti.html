@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet" type="text/css" />
+  <!--  <link rel="stylesheet" href="tarj_cump_css.css" /> -->
+  <style>
+    html {
+      box-sizing: border-box;
+      background: #ffc600;
+      font-family: "helvetica neue";
+      font-size: 12px;
+      font-weight: 200;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    *,
+    *:before,
+    *:after {
+      box-sizing: inherit;
+    }
+
+    .panels {
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .panel {
+      background: #6b0f9c;
+      box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.1);
+      color: yellow;
+      font-weight: bold;
+      text-align: center;
+      align-items: center;
+      transition: font-size 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11),
+        flex 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11), background 0.2s;
+      font-size: 1.8rem;
+      background-size: cover;
+      background-position: center;
+      flex: 1;
+      /* hace que cada panel se reparta el espacio extra por igual */
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel1 {
+      background-image: url(https://scontent-bog1-1.xx.fbcdn.net/v/t39.30808-6/316955053_10228105544534664_2903524796981022104_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5b7eaf&_nc_ohc=AUudS-5E8vMAX-1RoP5&_nc_ht=scontent-bog1-1.xx&oh=00_AfDU25gtXr2Q64vNhFjhQ4YNPo8X95L11zQwGdjv74LlZg&oe=63897BE5);
+    }
+
+    .panel2 {
+      background-image: url(https://scontent-bog1-1.xx.fbcdn.net/v/t1.18169-9/18194169_10212563534594129_668449153552418358_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=174925&_nc_ohc=Io52Xibm8yUAX-I4OJ3&_nc_ht=scontent-bog1-1.xx&oh=00_AfBOW7PldkOIPs9ITK_DTT5ASzwTm5uzbIisu7-lBn8Cww&oe=63AD06BD);
+    }
+
+    .panel3 {
+      background-image: url(https://scontent.fbog11-1.fna.fbcdn.net/v/t39.30808-6/271597547_10225772871604251_4809934150421190884_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEBOx1GM3yN4Rz9lEjsX1mT6oeQpTkOdyPqh5ClOQ53I203CC7H311F2a3glQa9CvAqgd6u4XBX33SUwJAZ8Kwg&_nc_ohc=UY0BFxrEw1UAX8i-Lxp&_nc_zt=23&_nc_ht=scontent.fbog11-1.fna&oh=00_AfD1rQKTVl8anWW5ZxfS9gwkgBTrA6wmk1lz_ECGcTAOAg&oe=638A959F);
+    }
+
+    .panel4 {
+      background-image: url(https://scontent-bog1-1.xx.fbcdn.net/v/t39.30808-6/317459722_1797072270679360_6812744646697482189_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=730e14&_nc_ohc=cQQreqYkrBAAX8JDvEr&tn=F6URXN4fjpaeQO4i&_nc_ht=scontent-bog1-1.xx&oh=00_AfB4Vw_gTk73cyxN6skV4fpjQ-CNMYwzHwTXRCSsZFsrng&oe=6389F75C);
+    }
+
+    .panel5 {
+      background-image: url(https://media-exp1.licdn.com/dms/image/C4E03AQGAGrzCyjJ7RA/profile-displayphoto-shrink_800_800/0/1588593770705?e=2147483647&v=beta&t=1U845g4v-cbjYMF-oIJlfHw-_7nv_vuABafgangmu0w);
+    }
+
+    /* Flex Items */
+    .panel>* {
+      margin: 0;
+      width: 100%;
+      transition: transform 0.5s;
+      flex: 1 0 auto;
+      /*hace que los hijos del panel se distribuyan de manera igual (palabras)*/
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* todos los elementos hijos */
+
+    .panel>*:first-child {
+      transform: translateY(-100%);
+    }
+
+    /* el primer hiijo del contendor con la clase .panel, se ocultará estando por encima del navegador */
+    .panel.open-active>*:first-child {
+      transform: translateY(0);
+    }
+
+    /* esto hace que si añadimos esa clase aparece el texto */
+    .panel>*:last-child {
+      transform: translateY(100%);
+    }
+
+    /* lo mismo con el útlimo child se esconde debajo */
+    .panel.open-active>*:last-child {
+      transform: translateY(0);
+    }
+
+    .panel p {
+      text-transform: uppercase;
+      font-family: "Amatic SC", cursive;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
+      font-size: 1em;
+    }
+
+    .panel p:nth-child(2) {
+      font-size: 1.5em;
+    }
+
+    .panel.open {
+      flex: 5;
+      /* el panel que tenga esta clase ocupará 5 veces más que el resto */
+      font-size: 4rem;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .panel p {
+        font-size: 0.7em;
+      }
+    }
+  </style>
+  <title>Mi Santi</title>
+</head>
+
+<body>
+  <div class="panels">
+    <div class="panel panel1">
+      <p>hola</p>
+      <p>mi</p>
+      <p>SANTI</p>
+    </div>
+    <div class="panel panel2">
+      <p>TE DESEO</p>
+      <p>UN FELIZ</p>
+      <p>CUMPLEAÑOS</p>
+    </div>
+    <div class="panel panel3">
+      <p>DIOS</p>
+      <p>SIEMPRE TE</p>
+      <p>PROTEJA</p>
+    </div>
+    <div class="panel panel4">
+      <p>TE BENDIGA</p>
+      <p>TE DE SALUD</p>
+      <p>ALEGRIA</p>
+    </div>
+    <div class="panel panel5">
+      <p>CONOCIMIENTO</p>
+      <p>SABIDURIA</p>
+      <p>JUSTICIA</p>
+    </div>
+  </div>
+  <!-- <script type="text/javascript" src="tarj_cump_js.js"></script> -->
+  <script>
+    "use strict";
+
+    const panels = document.querySelectorAll(".panel");
+
+    function toggleOpen() {
+      this.classList.toggle("open");
+    }
+
+    function toggleActive(e) {
+      console.log(e.propertyName);
+      if (e.propertyName.includes("flex")) {
+        this.classList.toggle("open-active");
+      }
+    }
+
+    panels.forEach((panel) => {
+      panel.addEventListener("click", toggleOpen);
+    });
+    panels.forEach((panel) => {
+      panel.addEventListener("transitionend", toggleActive);
+    });
+    document.addEventListener("click", () => {
+      document.documentElement.requestFullscreen().catch((e) => {
+        console.log(e)
+      });
+    });
+
+
+  </script>
+</body>
+
+</html>
